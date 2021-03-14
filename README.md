@@ -1,6 +1,6 @@
 # terraguard
 
-`terraguard` checks a [Terraform](https://terraform.io) plan for planned changes to specific resources.
+`terraguard` helps automate [Terraform plan](https://www.terraform.io/docs/cli/commands/plan.html) reviews by checking a Terraform plan for problematic resource changes.
 
 ## Disclaimer
 
