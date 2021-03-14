@@ -8,8 +8,8 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:          "terraguard",
-	Short:        "Ensure a Terraform plan does not modify guarded resources",
-	Long:         "A simple tool to protect against problematic Terraform actions",
+	Short:        "Protect against problematic Terraform actions",
+	Long:         "Ensure a Terraform plan does not modify guarded resources",
 	Version:      "0.0.1",
 	SilenceUsage: true,
 }
