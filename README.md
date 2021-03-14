@@ -1,3 +1,5 @@
+[![CI](https://github.com/mdb/terraguard/actions/workflows/ci.yml/badge.svg)](https://github.com/mdb/terraguard/actions/workflows/ci.yml)
+
 # terraguard
 
 `terraguard` helps automate [Terraform plan](https://www.terraform.io/docs/cli/commands/plan.html) reviews by checking a Terraform plan for problematic resource changes.
