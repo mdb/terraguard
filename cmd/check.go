@@ -2,7 +2,9 @@ package cmd
 
 import (
 	"fmt"
+	"strings"
 
+	"github.com/mdb/terraguard"
 	"github.com/spf13/cobra"
 )
 
@@ -13,17 +15,43 @@ var (
 		Short: "Check a Terraform plan for changes to specific resources",
 		Long:  "Check a Terraform plan for changes to specific resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
+			plan, err := cmd.Flags().GetString("plan")
+			if err != nil {
+				return err
+			}
+
+			resources, err := cmd.Flags().GetStringSlice("resources")
+			if err != nil {
+				return err
+			}
+
+			g, err := terraguard.NewGuard(plan, resources)
+			if err != nil {
+				return err
+			}
+
+			_, violations := g.Check()
+			if len(violations) > 0 {
+				violatedAddresses := []string{}
+
+				for _, v := range violations {
+					violatedAddresses = append(violatedAddresses, v.Address)
+				}
+
+				return fmt.Errorf("%s indicates changes to guarded resources: %s", plan, strings.Join(violatedAddresses, "\n"))
+			}
+
 			return nil
 		},
 	}
 )
 
 func init() {
-	checkCmd.Flags().StringSliceP("plan-json", "j", []string{}, "The path to a Terraform plan output JSON file")
-	checkCmd.MarkFlagRequired("plan-json")
+	checkCmd.Flags().StringP("plan", "p", "", "The path to a Terraform plan output JSON file")
+	checkCmd.MarkFlagRequired("plan")
 
-	checkCmd.Flags().StringSliceP("guarded-resources", "r", []string{}, "A comma-separated list of guarded resource addresses")
-	checkCmd.MarkFlagRequired("guarded-resources")
+	checkCmd.Flags().StringSliceP("resources", "r", []string{}, "A comma-separated list of guarded resource addresses")
+	checkCmd.MarkFlagRequired("resources")
 
 	rootCmd.AddCommand(checkCmd)
 }
