@@ -12,8 +12,8 @@ var (
 	// check is the cobra.Command defining the "terraguard check" action.
 	checkCmd = &cobra.Command{
 		Use:   "check",
-		Short: "Check a Terraform plan for changes to specific resources",
-		Long:  "Check a Terraform plan for changes to specific resources",
+		Short: "Check if a Terraform plan seeks to modify the specified resources",
+		Long:  "Check if a Terraform plan seeks to modify the specified resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			plan, err := cmd.Flags().GetString("plan")
 			if err != nil {
