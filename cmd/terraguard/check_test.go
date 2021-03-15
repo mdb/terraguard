@@ -5,6 +5,8 @@ import (
 	"os/exec"
 	"strings"
 	"testing"
+
+	"github.com/mdb/terraguard/cmd"
 )
 
 func TestCheck(t *testing.T) {
@@ -31,7 +33,7 @@ func TestCheck(t *testing.T) {
 		description: "when passed '--help'",
 		args:        []string{"--help"},
 		outputs: []string{
-			"Check if a Terraform plan seeks to modify the specified resources",
+			cmd.CheckLongDescription,
 			"Usage:",
 			"Flags:",
 		},
@@ -40,7 +42,7 @@ func TestCheck(t *testing.T) {
 		description: "when passed '-h'",
 		args:        []string{"-h"},
 		outputs: []string{
-			"Check if a Terraform plan seeks to modify the specified resources",
+			cmd.CheckLongDescription,
 			"Usage:",
 			"Flags:",
 		},

@@ -9,11 +9,17 @@ import (
 )
 
 var (
+	// CheckShortDescription is the check command's &cobra.Command.Short.
+	CheckShortDescription = "Check if a Terraform plan seeks to modify the specified resources"
+
+	// CheckLongDescription is the check command's &cobra.Command.Long.
+	CheckLongDescription = CheckShortDescription
+
 	// check is the cobra.Command defining the "terraguard check" action.
 	checkCmd = &cobra.Command{
 		Use:   "check",
-		Short: "Check if a Terraform plan seeks to modify the specified resources",
-		Long:  "Check if a Terraform plan seeks to modify the specified resources",
+		Short: CheckShortDescription,
+		Long:  CheckLongDescription,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			plan, err := cmd.Flags().GetString("plan")
 			if err != nil {
