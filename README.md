@@ -4,6 +4,8 @@
 
 `terraguard` helps automate [Terraform plan](https://www.terraform.io/docs/cli/commands/plan.html) reviews by checking a Terraform plan JSON for problematic resource changes.
 
+`terraguard` is a minimal -- though less mature -- alternative to Terraform policy enforcement tools like [Open Policy Agent](https://www.openpolicyagent.org/) and [Sentinel](https://www.hashicorp.com/sentinel).
+
 ## CLI Usage
 
 `terraguard check` examines a Terraform plan JSON file for changes to guarded resources.
