@@ -81,7 +81,7 @@ func TestCheck(t *testing.T) {
 			"--resources=module.foo.null_resource.foo",
 		},
 		outputs: []string{
-			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n module.foo.null_resource.foo",
+			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.foo",
 		},
 		err: exitErr,
 	}, {
@@ -91,7 +91,7 @@ func TestCheck(t *testing.T) {
 			"--resources=*foo.null_resource.foo",
 		},
 		outputs: []string{
-			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n module.foo.null_resource.foo",
+			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.foo",
 		},
 		err: exitErr,
 	}, {
@@ -101,7 +101,7 @@ func TestCheck(t *testing.T) {
 			"--resources=module.foo.null_resource.*",
 		},
 		outputs: []string{
-			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n module.foo.null_resource.aliased\nmodule.foo.null_resource.foo",
+			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.aliased\nmodule.foo.null_resource.foo",
 		},
 		err: exitErr,
 	}, {
@@ -111,7 +111,7 @@ func TestCheck(t *testing.T) {
 			"--resources=*.foo.null_resource.*",
 		},
 		outputs: []string{
-			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n module.foo.null_resource.aliased\nmodule.foo.null_resource.foo",
+			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.aliased\nmodule.foo.null_resource.foo",
 		},
 		err: exitErr,
 	}, {
@@ -121,7 +121,7 @@ func TestCheck(t *testing.T) {
 			"--resources=module.foo.null_resource.foo, bar",
 		},
 		outputs: []string{
-			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n module.foo.null_resource.foo",
+			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.foo",
 		},
 		err: exitErr,
 	}, {
@@ -131,7 +131,7 @@ func TestCheck(t *testing.T) {
 			"--resources=module.foo.null_resource.foo, module.foo.null_resource.aliased",
 		},
 		outputs: []string{
-			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n module.foo.null_resource.aliased\nmodule.foo.null_resource.foo",
+			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.aliased\nmodule.foo.null_resource.foo",
 		},
 		err: exitErr,
 	}, {
@@ -142,7 +142,7 @@ func TestCheck(t *testing.T) {
 			"--resources=module.foo.null_resource.aliased",
 		},
 		outputs: []string{
-			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n module.foo.null_resource.aliased\nmodule.foo.null_resource.foo",
+			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.aliased\nmodule.foo.null_resource.foo",
 		},
 		err: exitErr,
 	}}

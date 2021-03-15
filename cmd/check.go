@@ -44,7 +44,7 @@ var (
 					violatedAddresses = append(violatedAddresses, v.Address)
 				}
 
-				return fmt.Errorf("%s indicates changes to guarded resources:\n %s", plan, strings.Join(violatedAddresses, "\n"))
+				return fmt.Errorf("%s indicates changes to guarded resources:\n\n%s", plan, strings.Join(violatedAddresses, "\n"))
 			}
 
 			return nil
