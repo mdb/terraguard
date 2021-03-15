@@ -6,6 +6,8 @@ import (
 	"os/exec"
 	"strings"
 	"testing"
+
+	"github.com/mdb/terraguard/cmd"
 )
 
 func TestRoot(t *testing.T) {
@@ -24,7 +26,7 @@ func TestRoot(t *testing.T) {
 	}, {
 		arg: "--help",
 		outputs: []string{
-			"Ensure a Terraform plan does not modify guarded resources",
+			cmd.LongDescription,
 			"Usage:",
 			"Available Commands:",
 			"Flags:",
@@ -33,7 +35,7 @@ func TestRoot(t *testing.T) {
 	}, {
 		arg: "-h",
 		outputs: []string{
-			"Ensure a Terraform plan does not modify guarded resources",
+			cmd.LongDescription,
 			"Usage:",
 			"Available Commands:",
 			"Flags:",
@@ -42,7 +44,7 @@ func TestRoot(t *testing.T) {
 	}, {
 		arg: "",
 		outputs: []string{
-			"Ensure a Terraform plan does not modify guarded resources",
+			cmd.LongDescription,
 			"Usage:",
 			"Available Commands:",
 			"Flags:",
