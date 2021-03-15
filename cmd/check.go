@@ -26,7 +26,7 @@ var (
 				return err
 			}
 
-			resources, err := cmd.Flags().GetStringSlice("resources")
+			resources, err := cmd.Flags().GetStringSlice("guard")
 			if err != nil {
 				return err
 			}
@@ -56,8 +56,8 @@ func init() {
 	checkCmd.Flags().StringP("plan", "p", "", "The path to a Terraform plan output JSON file")
 	checkCmd.MarkFlagRequired("plan")
 
-	checkCmd.Flags().StringSliceP("resources", "r", []string{}, "A comma-separated list of guarded resource addresses")
-	checkCmd.MarkFlagRequired("resources")
+	checkCmd.Flags().StringSliceP("guard", "g", []string{}, "A comma-separated list of guarded resource addresses")
+	checkCmd.MarkFlagRequired("guard")
 
 	rootCmd.AddCommand(checkCmd)
 }

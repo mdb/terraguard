@@ -26,7 +26,7 @@ func TestCheck(t *testing.T) {
 		description: "when passed an unknown 'foo' flag",
 		args:        []string{"foo"},
 		outputs: []string{
-			"Error: required flag(s) \"plan\", \"resources\" not set",
+			"Error: required flag(s) \"guard\", \"plan\" not set",
 		},
 		err: exitErr,
 	}, {
@@ -51,14 +51,14 @@ func TestCheck(t *testing.T) {
 		description: "when passed no arguments",
 		args:        []string{""},
 		outputs: []string{
-			"Error: required flag(s) \"plan\", \"resources\" not set",
+			"Error: required flag(s) \"guard\", \"plan\" not set",
 		},
 		err: errors.New("exit status 1"),
 	}, {
 		description: "when the plan JSON file does not exist",
 		args: []string{
 			"--plan=does_not_exist.json",
-			"--resources=foo",
+			"--guard=foo",
 		},
 		outputs: []string{
 			"Error: open does_not_exist.json: no such file or directory",
@@ -68,7 +68,7 @@ func TestCheck(t *testing.T) {
 		description: "when the plan JSON does not indicate changes to the specified resource",
 		args: []string{
 			"--plan=../../test_fixtures/basic_plan.json",
-			"--resources=foo",
+			"--guard=foo",
 		},
 		outputs: []string{
 			"",
@@ -78,7 +78,7 @@ func TestCheck(t *testing.T) {
 		description: "when the plan JSON indicates changes to the specified resource",
 		args: []string{
 			"--plan=../../test_fixtures/basic_plan.json",
-			"--resources=module.foo.null_resource.foo",
+			"--guard=module.foo.null_resource.foo",
 		},
 		outputs: []string{
 			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.foo",
@@ -88,7 +88,7 @@ func TestCheck(t *testing.T) {
 		description: "when the plan JSON indicates changes to the specified '*'-prefixed resource",
 		args: []string{
 			"--plan=../../test_fixtures/basic_plan.json",
-			"--resources=*foo.null_resource.foo",
+			"--guard=*foo.null_resource.foo",
 		},
 		outputs: []string{
 			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.foo",
@@ -98,7 +98,7 @@ func TestCheck(t *testing.T) {
 		description: "when the plan JSON indicates changes to the specified '*'-suffixed resource",
 		args: []string{
 			"--plan=../../test_fixtures/basic_plan.json",
-			"--resources=module.foo.null_resource.*",
+			"--guard=module.foo.null_resource.*",
 		},
 		outputs: []string{
 			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.aliased\nmodule.foo.null_resource.foo",
@@ -108,7 +108,7 @@ func TestCheck(t *testing.T) {
 		description: "when the plan JSON indicates changes to the specified '*'-prefixed and '*'-suffixed resource",
 		args: []string{
 			"--plan=../../test_fixtures/basic_plan.json",
-			"--resources=*.foo.null_resource.*",
+			"--guard=*.foo.null_resource.*",
 		},
 		outputs: []string{
 			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.aliased\nmodule.foo.null_resource.foo",
@@ -118,7 +118,7 @@ func TestCheck(t *testing.T) {
 		description: "when the plan JSON indicates changes to one of multiple resources",
 		args: []string{
 			"--plan=../../test_fixtures/basic_plan.json",
-			"--resources=module.foo.null_resource.foo, bar",
+			"--guard=module.foo.null_resource.foo, bar",
 		},
 		outputs: []string{
 			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.foo",
@@ -128,7 +128,7 @@ func TestCheck(t *testing.T) {
 		description: "when the plan JSON indicates changes to multiple comma-separated resources",
 		args: []string{
 			"--plan=../../test_fixtures/basic_plan.json",
-			"--resources=module.foo.null_resource.foo, module.foo.null_resource.aliased",
+			"--guard=module.foo.null_resource.foo, module.foo.null_resource.aliased",
 		},
 		outputs: []string{
 			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.aliased\nmodule.foo.null_resource.foo",
@@ -138,8 +138,8 @@ func TestCheck(t *testing.T) {
 		description: "when the plan JSON indicates changes to multiple individually specified resources",
 		args: []string{
 			"--plan=../../test_fixtures/basic_plan.json",
-			"--resources=module.foo.null_resource.foo",
-			"--resources=module.foo.null_resource.aliased",
+			"--guard=module.foo.null_resource.foo",
+			"--guard=module.foo.null_resource.aliased",
 		},
 		outputs: []string{
 			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.aliased\nmodule.foo.null_resource.foo",
