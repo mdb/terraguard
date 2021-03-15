@@ -43,13 +43,15 @@ With multiple guarded resources:
 terraguard \
   check \
     --guard="*foo*" \
-    --guard="*biz*" \
+    --guard="*bar*" \
+    --guard="null_resource.baz[0]" \
     --plan="test_fixtures/basic_plan.json"
 Error: test_fixtures/basic_plan.json indicates changes to guarded resources:
 
 module.foo.null_resource.aliased
 module.foo.null_resource.foo
 null_resource.bar
+null_resource.baz[0]
 null_resource.foo
 ```
 
