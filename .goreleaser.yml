@@ -24,6 +24,11 @@ checksum:
   name_template: 'checksums.txt'
 snapshot:
   name_template: "{{ .Tag }}-next"
+dockers:
+  - goos: linux
+    image_templates:
+    - "clapclapexcitement/terraguard:snapshot"
+    skip_push: true
 changelog:
   sort: asc
   filters:
