@@ -30,6 +30,11 @@ func TestCheck(t *testing.T) {
 		guardedChanges:     []string{"*.foo.null_resource.foo"},
 		expectedViolations: 1,
 		planJSON:           "basic_plan.json",
+	}, {
+		name:               "when checking changes to multiple existing address names with spaces",
+		guardedChanges:     []string{"data.null_data_source.baz", " null_resource.baz[0] "},
+		expectedViolations: 2,
+		planJSON:           "basic_plan.json",
 	}}
 
 	for _, test := range tests {

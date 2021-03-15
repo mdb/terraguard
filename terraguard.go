@@ -40,13 +40,16 @@ func (g *Guard) Check() (bool, []*tfjson.ResourceChange) {
 }
 
 func (g *Guard) isGuarded(address, guardedAddress string) bool {
-	if strings.Contains(guardedAddress, "*") {
-		baseAddressName := strings.ReplaceAll(guardedAddress, "*", "")
+	sanitizedAddress := strings.ReplaceAll(address, " ", "")
+	sanitizedGuardedAddress := strings.ReplaceAll(guardedAddress, " ", "")
 
-		return strings.Contains(address, baseAddressName)
+	if strings.Contains(sanitizedGuardedAddress, "*") {
+		baseAddressName := strings.ReplaceAll(sanitizedGuardedAddress, "*", "")
+
+		return strings.Contains(sanitizedAddress, baseAddressName)
 	}
 
-	return address == guardedAddress
+	return sanitizedAddress == sanitizedGuardedAddress
 }
 
 // NewGuard returns a new Guard built from the Terraform
