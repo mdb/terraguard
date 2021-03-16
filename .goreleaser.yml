@@ -27,8 +27,8 @@ snapshot:
 dockers:
   - goos: linux
     image_templates:
-    - "clapclapexcitement/terraguard:snapshot"
-    skip_push: true
+    - "clapclapexcitement/terraguard:latest"
+    - "clapclapexcitement/terraguard:{{.Version}}"
 changelog:
   sort: asc
   filters:
