@@ -1,6 +1,9 @@
-name: CI
+name: Release
 
-on: [push, pull_request]
+on:
+  push:
+    tags:
+      - "*"
 
 jobs:
 
@@ -14,5 +17,7 @@ jobs:
         with:
           go-version: 1.16
 
-      - name: Build
-        run: make
+      - name: Build & Release
+        run: make release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
