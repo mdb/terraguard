@@ -12,18 +12,20 @@ var (
 
 	// LongDescription is terraguard's &cobra.Command.Long
 	LongDescription string = "Ensure a Terraform plan does not modify guarded resources"
+
+	// rootCmd is the terraguard *cobra.Command
+	rootCmd = &cobra.Command{
+		Use:          "terraguard",
+		Short:        ShortDescription,
+		Long:         LongDescription,
+		SilenceUsage: true,
+	}
 )
 
-var rootCmd = &cobra.Command{
-	Use:          "terraguard",
-	Short:        ShortDescription,
-	Long:         LongDescription,
-	Version:      "0.0.1",
-	SilenceUsage: true,
-}
-
 // Execute executes the terraguard command.
-func Execute() {
+func Execute(version string) {
+	rootCmd.Version = version
+
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
 	}
