@@ -14,3 +14,5 @@ jobs:
           go-version: 1.18
       - name: Build
         run: make
+      - name: Ensure unique version
+        run: make check-tag
