@@ -21,6 +21,11 @@ func TestCheck(t *testing.T) {
 		expectedViolations: 1,
 		planJSON:           "testdata/show-plan.json",
 	}, {
+		name:               "when checking changes to an existing resource address name with NOOP changes",
+		guardedChanges:     []string{"local_file.greeting_no_change"},
+		expectedViolations: 0,
+		planJSON:           "testdata/show-plan.json",
+	}, {
 		name:               "when checking changes to an existing resource address name suffixed with a '*'",
 		guardedChanges:     []string{"local_file.greeting*"},
 		expectedViolations: 2,

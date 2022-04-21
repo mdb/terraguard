@@ -68,7 +68,7 @@ func TestCheck(t *testing.T) {
 		description: "when the plan JSON does not indicate changes to the specified resource",
 		args: []string{
 			"--plan=../../testdata/show-plan.json",
-			"--guard=foo",
+			"--guard=local_file.greeting_no_change",
 		},
 		outputs: []string{
 			"",
