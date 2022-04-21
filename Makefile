@@ -48,7 +48,7 @@ define generate-testdata
 				"terraform init && \
 				terraform apply -auto-approve && \
 				terraform show -json terraform.tfstate > show-state.json && \
-				terraform plan -var 'greeting_one=goodbye' -out 'plan.out' && \
+				terraform plan -var 'greeting=goodbye' -out 'plan.out' && \
 				terraform show -json plan.out > show-plan-unformatted.json"
 	docker run \
 		--volume $(shell pwd):/src \

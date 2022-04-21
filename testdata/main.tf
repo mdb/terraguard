@@ -1,23 +1,28 @@
-data "template_file" "greeting_one" {
+data "template_file" "greeting" {
   template = <<-EOT
   #/bin/bash
-  echo "${var.greeting_one}"
+  echo "${var.greeting}"
   EOT
 }
 
 resource "local_file" "greeting_one" {
-  content  = data.template_file.greeting_one.rendered
+  content  = data.template_file.greeting.rendered
   filename = "${path.module}/greeting_one.sh"
 }
 
-data "template_file" "greeting_two" {
+resource "local_file" "greeting_two" {
+  content  = data.template_file.greeting.rendered
+  filename = "${path.module}/greeting_two.sh"
+}
+
+data "template_file" "greeting_no_changes" {
   template = <<-EOT
   #/bin/bash
-  echo "${var.greeting_two}"
+  echo "no_changes"
   EOT
 }
 
-resource "local_file" "greeting_two" {
-  content  = data.template_file.greeting_two.rendered
-  filename = "${path.module}/greeting_two.sh"
+resource "local_file" "greeting_no_changes" {
+  content  = data.template_file.greeting_no_changes.rendered
+  filename = "${path.module}/greeting_no_changes.sh"
 }

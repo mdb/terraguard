@@ -26,7 +26,7 @@ func (g *Guard) Check() (bool, []*tfjson.ResourceChange) {
 
 	for _, rc := range g.Plan.ResourceChanges {
 		for _, gr := range g.GuardedResources {
-			if g.isGuarded(rc.Address, gr) {
+			if g.isGuarded(rc.Address, gr) && !rc.Change.Actions.NoOp() {
 				guardedChanges = append(guardedChanges, rc)
 			}
 		}
