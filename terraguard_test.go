@@ -11,35 +11,40 @@ func TestCheck(t *testing.T) {
 		expectedViolations int
 		planJSON           string
 	}{{
-		name:               "when checking changes to a non-existing module address name",
+		name:               "when checking changes to a non-existing resource address name",
 		guardedChanges:     []string{"foo"},
 		expectedViolations: 0,
-		planJSON:           "basic_plan.json",
+		planJSON:           "testdata/show-plan.json",
 	}, {
-		name:               "when checking changes to an existing module address name",
-		guardedChanges:     []string{"data.null_data_source.baz"},
+		name:               "when checking changes to an existing resource address name",
+		guardedChanges:     []string{"local_file.greeting_one"},
 		expectedViolations: 1,
-		planJSON:           "basic_plan.json",
+		planJSON:           "testdata/show-plan.json",
 	}, {
-		name:               "when checking changes to an existing module address name suffixed with a '*'",
-		guardedChanges:     []string{"null_resource.baz*"},
-		expectedViolations: 3,
-		planJSON:           "basic_plan.json",
+		name:               "when checking changes to an existing resource address name suffixed with a '*'",
+		guardedChanges:     []string{"local_file.greeting*"},
+		expectedViolations: 2,
+		planJSON:           "testdata/show-plan.json",
 	}, {
-		name:               "when checking changes to an existing module address name prefixed with a '*'",
-		guardedChanges:     []string{"*.foo.null_resource.foo"},
+		name:               "when checking changes to an existing address name prefixed with a '*'",
+		guardedChanges:     []string{"*.greeting_one"},
 		expectedViolations: 1,
-		planJSON:           "basic_plan.json",
+		planJSON:           "testdata/show-plan.json",
+	}, {
+		name:               "when checking changes to an existing address name prefixed and suffixed with a '*'",
+		guardedChanges:     []string{"*.greeting*"},
+		expectedViolations: 2,
+		planJSON:           "testdata/show-plan.json",
 	}, {
 		name:               "when checking changes to multiple existing address names with spaces",
-		guardedChanges:     []string{"data.null_data_source.baz", " null_resource.baz[0] "},
+		guardedChanges:     []string{"local_file.greeting_one", " local_file.greeting_two "},
 		expectedViolations: 2,
-		planJSON:           "basic_plan.json",
+		planJSON:           "testdata/show-plan.json",
 	}}
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			g, err := NewGuard("test_fixtures/"+test.planJSON, test.guardedChanges)
+			g, err := NewGuard(test.planJSON, test.guardedChanges)
 			if err != nil {
 				t.Errorf("expected NewGuard not to error; got '%v'", err)
 			}
