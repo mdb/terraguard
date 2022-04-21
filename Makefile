@@ -64,11 +64,9 @@ testdata:
 	$(call generate-testdata,1.1.5)
 
 reset-testdata:
-	rm testdata/show-plan-unformatted.json || exit 0
-	rm testdata/show-plan.json || exit 0
-	rm testdata/show-state.json || exit 0
-	rm testdata/terraform.tfstate || exit 0
-	rm testdata/plan.out || exit 0
+	git rm testdata/show-plan.json || exit 0
+	git rm testdata/show-state.json || exit 0
+	git rm testdata/terraform.tfstate || exit 0
 
 tag:
 	if git rev-parse $(VERSION) >/dev/null 2>&1; then \
@@ -86,3 +84,4 @@ clean:
 	rm -rf testdata/terraform.tfstate.backup || exit 0
 	rm -rf testdata/greeting_*.sh || exit 0
 	rm -rf testdata/show-plan-unformatted.json || exit 0
+	rm -rf testdata/plan.out || exit 0

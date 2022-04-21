@@ -21,15 +21,3 @@ resource "local_file" "greeting_two" {
   content  = data.template_file.greeting_two.rendered
   filename = "${path.module}/greeting_two.sh"
 }
-
-data "template_file" "greeting_three" {
-  template = <<-EOT
-  #/bin/bash
-  echo "${var.greeting_three}"
-  EOT
-}
-
-resource "local_file" "greeting_three" {
-  content  = data.template_file.greeting_three.rendered
-  filename = "${path.module}/greeting_three.sh"
-}

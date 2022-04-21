@@ -5,9 +5,6 @@
     "greeting_one": {
       "value": "goodbye"
     },
-    "greeting_three": {
-      "value": "hi"
-    },
     "greeting_two": {
       "value": "hi"
     }
@@ -28,25 +25,6 @@
             "directory_permission": "0777",
             "file_permission": "0777",
             "filename": "./greeting_one.sh",
-            "sensitive_content": null,
-            "source": null
-          },
-          "sensitive_values": {}
-        },
-        {
-          "address": "local_file.greeting_three",
-          "mode": "managed",
-          "type": "local_file",
-          "name": "greeting_three",
-          "provider_name": "registry.terraform.io/hashicorp/local",
-          "schema_version": 0,
-          "values": {
-            "content": "#/bin/bash\necho \"hi\"\n",
-            "content_base64": null,
-            "directory_permission": "0777",
-            "file_permission": "0777",
-            "filename": "./greeting_three.sh",
-            "id": "108db9a56d52413ad1639fea121e71947bcf0a1f",
             "sensitive_content": null,
             "source": null
           },
@@ -123,45 +101,6 @@
       "action_reason": "replace_because_cannot_update"
     },
     {
-      "address": "local_file.greeting_three",
-      "mode": "managed",
-      "type": "local_file",
-      "name": "greeting_three",
-      "provider_name": "registry.terraform.io/hashicorp/local",
-      "change": {
-        "actions": [
-          "no-op"
-        ],
-        "before": {
-          "content": "#/bin/bash\necho \"hi\"\n",
-          "content_base64": null,
-          "directory_permission": "0777",
-          "file_permission": "0777",
-          "filename": "./greeting_three.sh",
-          "id": "108db9a56d52413ad1639fea121e71947bcf0a1f",
-          "sensitive_content": null,
-          "source": null
-        },
-        "after": {
-          "content": "#/bin/bash\necho \"hi\"\n",
-          "content_base64": null,
-          "directory_permission": "0777",
-          "file_permission": "0777",
-          "filename": "./greeting_three.sh",
-          "id": "108db9a56d52413ad1639fea121e71947bcf0a1f",
-          "sensitive_content": null,
-          "source": null
-        },
-        "after_unknown": {},
-        "before_sensitive": {
-          "sensitive_content": true
-        },
-        "after_sensitive": {
-          "sensitive_content": true
-        }
-      }
-    },
-    {
       "address": "local_file.greeting_two",
       "mode": "managed",
       "type": "local_file",
@@ -224,22 +163,6 @@
             "sensitive_values": {}
           },
           {
-            "address": "data.template_file.greeting_three",
-            "mode": "data",
-            "type": "template_file",
-            "name": "greeting_three",
-            "provider_name": "registry.terraform.io/hashicorp/template",
-            "schema_version": 0,
-            "values": {
-              "filename": null,
-              "id": "ae20f3f58abf91f096ec9c1420e50ffc6a4bf8c33c82ee32e258dfd34785a9d6",
-              "rendered": "#/bin/bash\necho \"hi\"\n",
-              "template": "#/bin/bash\necho \"hi\"\n",
-              "vars": null
-            },
-            "sensitive_values": {}
-          },
-          {
             "address": "data.template_file.greeting_two",
             "mode": "data",
             "type": "template_file",
@@ -275,28 +198,6 @@
             "sensitive_values": {},
             "depends_on": [
               "data.template_file.greeting_one"
-            ]
-          },
-          {
-            "address": "local_file.greeting_three",
-            "mode": "managed",
-            "type": "local_file",
-            "name": "greeting_three",
-            "provider_name": "registry.terraform.io/hashicorp/local",
-            "schema_version": 0,
-            "values": {
-              "content": "#/bin/bash\necho \"hi\"\n",
-              "content_base64": null,
-              "directory_permission": "0777",
-              "file_permission": "0777",
-              "filename": "./greeting_three.sh",
-              "id": "108db9a56d52413ad1639fea121e71947bcf0a1f",
-              "sensitive_content": null,
-              "source": null
-            },
-            "sensitive_values": {},
-            "depends_on": [
-              "data.template_file.greeting_three"
             ]
           },
           {
@@ -350,27 +251,6 @@
           "schema_version": 0
         },
         {
-          "address": "local_file.greeting_three",
-          "mode": "managed",
-          "type": "local_file",
-          "name": "greeting_three",
-          "provider_config_key": "local",
-          "expressions": {
-            "content": {
-              "references": [
-                "data.template_file.greeting_three.rendered",
-                "data.template_file.greeting_three"
-              ]
-            },
-            "filename": {
-              "references": [
-                "path.module"
-              ]
-            }
-          },
-          "schema_version": 0
-        },
-        {
           "address": "local_file.greeting_two",
           "mode": "managed",
           "type": "local_file",
@@ -407,21 +287,6 @@
           "schema_version": 0
         },
         {
-          "address": "data.template_file.greeting_three",
-          "mode": "data",
-          "type": "template_file",
-          "name": "greeting_three",
-          "provider_config_key": "template",
-          "expressions": {
-            "template": {
-              "references": [
-                "var.greeting_three"
-              ]
-            }
-          },
-          "schema_version": 0
-        },
-        {
           "address": "data.template_file.greeting_two",
           "mode": "data",
           "type": "template_file",
@@ -441,10 +306,6 @@
         "greeting_one": {
           "default": "hello",
           "description": "the first greeting"
-        },
-        "greeting_three": {
-          "default": "hi",
-          "description": "the second greeting"
         },
         "greeting_two": {
           "default": "hi",

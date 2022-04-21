@@ -7,8 +7,3 @@ variable greeting_two {
   description = "the second greeting"
   default     = "hi"
 }
-
-variable greeting_three {
-  description = "the second greeting"
-  default     = "hi"
-}
