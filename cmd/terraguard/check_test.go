@@ -67,7 +67,7 @@ func TestCheck(t *testing.T) {
 	}, {
 		description: "when the plan JSON does not indicate changes to the specified resource",
 		args: []string{
-			"--plan=../../test_fixtures/basic_plan.json",
+			"--plan=../../testdata/show-plan.json",
 			"--guard=foo",
 		},
 		outputs: []string{
@@ -77,72 +77,72 @@ func TestCheck(t *testing.T) {
 	}, {
 		description: "when the plan JSON indicates changes to the specified resource",
 		args: []string{
-			"--plan=../../test_fixtures/basic_plan.json",
-			"--guard=module.foo.null_resource.foo",
+			"--plan=../../testdata/show-plan.json",
+			"--guard=local_file.greeting_one",
 		},
 		outputs: []string{
-			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.foo",
+			"Error: ../../testdata/show-plan.json indicates changes to guarded resources:\n\nlocal_file.greeting_one",
 		},
 		err: exitErr,
 	}, {
 		description: "when the plan JSON indicates changes to the specified '*'-prefixed resource",
 		args: []string{
-			"--plan=../../test_fixtures/basic_plan.json",
-			"--guard=*foo.null_resource.foo",
+			"--plan=../../testdata/show-plan.json",
+			"--guard=*file.greeting_one",
 		},
 		outputs: []string{
-			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.foo",
+			"Error: ../../testdata/show-plan.json indicates changes to guarded resources:\n\nlocal_file.greeting_one",
 		},
 		err: exitErr,
 	}, {
 		description: "when the plan JSON indicates changes to the specified '*'-suffixed resource",
 		args: []string{
-			"--plan=../../test_fixtures/basic_plan.json",
-			"--guard=module.foo.null_resource.*",
+			"--plan=../../testdata/show-plan.json",
+			"--guard=local_file.greeting_*",
 		},
 		outputs: []string{
-			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.aliased\nmodule.foo.null_resource.foo",
+			"Error: ../../testdata/show-plan.json indicates changes to guarded resources:\n\nlocal_file.greeting_one\nlocal_file.greeting_two",
 		},
 		err: exitErr,
 	}, {
 		description: "when the plan JSON indicates changes to the specified '*'-prefixed and '*'-suffixed resource",
 		args: []string{
-			"--plan=../../test_fixtures/basic_plan.json",
-			"--guard=*.foo.null_resource.*",
+			"--plan=../../testdata/show-plan.json",
+			"--guard=*local*",
 		},
 		outputs: []string{
-			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.aliased\nmodule.foo.null_resource.foo",
+			"Error: ../../testdata/show-plan.json indicates changes to guarded resources:\n\nlocal_file.greeting_one\nlocal_file.greeting_two",
 		},
 		err: exitErr,
 	}, {
-		description: "when the plan JSON indicates changes to one of multiple resources",
+		description: "when the plan JSON indicates changes to one of multiple comma-separated resources",
 		args: []string{
-			"--plan=../../test_fixtures/basic_plan.json",
-			"--guard=module.foo.null_resource.foo, bar",
+			"--plan=../../testdata/show-plan.json",
+			"--guard=local_file.greeting_one, bar",
 		},
 		outputs: []string{
-			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.foo",
+			"Error: ../../testdata/show-plan.json indicates changes to guarded resources:\n\nlocal_file.greeting_one",
 		},
 		err: exitErr,
 	}, {
 		description: "when the plan JSON indicates changes to multiple comma-separated resources",
 		args: []string{
-			"--plan=../../test_fixtures/basic_plan.json",
-			"--guard=module.foo.null_resource.foo, module.foo.null_resource.aliased",
+			"--plan=../../testdata/show-plan.json",
+			"--guard=local_file.greeting_one, local_file.greeting_two",
 		},
 		outputs: []string{
-			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.aliased\nmodule.foo.null_resource.foo",
+			"Error: ../../testdata/show-plan.json indicates changes to guarded resources:\n\nlocal_file.greeting_one\nlocal_file.greeting_two",
 		},
 		err: exitErr,
 	}, {
 		description: "when the plan JSON indicates changes to multiple individually specified resources",
 		args: []string{
-			"--plan=../../test_fixtures/basic_plan.json",
-			"--guard=module.foo.null_resource.foo",
-			"--guard=module.foo.null_resource.aliased",
+			"--plan=../../testdata/show-plan.json",
+			"--guard=local_file.greeting_one",
+			"--guard=local_file.greeting_two",
 		},
 		outputs: []string{
-			"Error: ../../test_fixtures/basic_plan.json indicates changes to guarded resources:\n\nmodule.foo.null_resource.aliased\nmodule.foo.null_resource.foo",
+			"Error: ../../testdata/show-plan.json indicates changes to guarded resources:\n\nlocal_file.greeting_one\nlocal_file.greeting_two",
 		},
 		err: exitErr,
 	}}
