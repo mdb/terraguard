@@ -1,5 +1,5 @@
 SOURCE=./...
-VERSION="0.0.1"
+VERSION="0.0.2"
 
 .DEFAULT_GOAL := build
 
@@ -48,7 +48,7 @@ define generate-testdata
 				"terraform init && \
 				terraform apply -auto-approve && \
 				terraform show -json terraform.tfstate > show-state.json && \
-				terraform plan -var 'greeting_one=goodbye' -out 'plan.out' && \
+				terraform plan -var 'greeting=goodbye' -out 'plan.out' && \
 				terraform show -json plan.out > show-plan-unformatted.json"
 	docker run \
 		--volume $(shell pwd):/src \
@@ -69,15 +69,14 @@ reset-testdata:
 	git rm testdata/terraform.tfstate || exit 0
 .PHONY: reset-testdata
 
-tag:
-	if git rev-parse $(VERSION) >/dev/null 2>&1; then \
-		echo "found existing $(VERSION) git tag"; \
-	else \
-		echo "creating git tag $(VERSION)"; \
-		git tag $(VERSION); \
-		git push origin $(VERSION); \
-	fi
-.PHONY: tag
+check-tag:
+	./scripts/ensure_unique_version.sh "$(VERSION)"
+.PHONY: check-tag
+
+tag: check-tag
+	@echo "creating git tag $(VERSION)"
+	@git tag $(VERSION)
+	@git push origin $(VERSION)
 
 clean:
 	rm -rf dist || exit 0

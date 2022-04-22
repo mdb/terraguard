@@ -2,6 +2,7 @@ dist
 cmd/terraguard/terraguard
 testdata/terraform.tfstate.backup
 testdata/.terraform
+testdata/plan.out
 testdata/.terraform.lock.hcl
 testdata/greeting_*
 testdata/show-plan-unformatted.json
